@@ -39,20 +39,12 @@ void ScriptMgr::OnGossipSelect(Player* player, uint32 menu_id, uint32 sender, ui
     });
 }
 
-void ScriptMgr::OnGossipSelectCode(Player* player, uint32 menu_id, uint32 sender, uint32 action, std::string_view code)
+void ScriptMgr::OnGossipSelectCode(Player* player, uint32 menu_id, uint32 sender, uint32 action, const char* code)
 {
     ExecuteScript<PlayerScript>([&](PlayerScript* script)
     {
         script->OnGossipSelectCode(player, menu_id, sender, action, code);
     });
-}
-
-void ScriptMgr::OnGossipSelectCode2(Player* player, uint32 menu_id, uint32 sender, uint32 action, const char* code)
-{
-    ExecuteScript<PlayerScript>([&](PlayerScript* script)
-        {
-            script->OnGossipSelectCode2(player, menu_id, sender, action, code);
-        });
 }
 
 void ScriptMgr::OnPlayerCompleteQuest(Player* player, Quest const* quest)

@@ -46,7 +46,7 @@ public:
         return false;
     }
 
-    bool CanCreatureGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, std::string_view code) override
+    bool CanCreatureGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override
     {
         if (sEluna->OnGossipSelectCode(player, creature, sender, action, code))
             return true;
@@ -158,7 +158,7 @@ public:
         return false;
     }
 
-    bool CanGameObjectGossipSelectCode(Player* player, GameObject* go, uint32 sender, uint32 action, std::string_view code) override
+    bool CanGameObjectGossipSelectCode(Player* player, GameObject* go, uint32 sender, uint32 action, const char* code) override
     {
         if (sEluna->OnGossipSelectCode(player, go, sender, action, code))
             return true;
@@ -226,7 +226,7 @@ public:
         sEluna->HandleGossipSelectOption(player, item, sender, action, "");
     }
 
-    void OnItemGossipSelectCode(Player* player, Item* item, uint32 sender, uint32 action, std::string_view code) override
+    void OnItemGossipSelectCode(Player* player, Item* item, uint32 sender, uint32 action, const char* code) override
     {
         sEluna->HandleGossipSelectOption(player, item, sender, action, std::string{ code });
     }
@@ -604,7 +604,7 @@ public:
         sEluna->HandleGossipSelectOption(player, menu_id, sender, action, "");
     }
 
-    void OnGossipSelectCode(Player* player, uint32 menu_id, uint32 sender, uint32 action, std::string_view code) override
+    void OnGossipSelectCode(Player* player, uint32 menu_id, uint32 sender, uint32 action, const char* code) override
     {
         sEluna->HandleGossipSelectOption(player, menu_id, sender, action, std::string{ code });
     }

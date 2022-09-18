@@ -105,7 +105,7 @@ public:
         return true;
     }
     
-    bool OnGossipSelectCode2(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override {
+    bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override {
          ClearGossipMenuFor(player);
 
         if (sender != GOSSIP_SENDER_MAIN)
@@ -119,7 +119,7 @@ public:
         }
 
         if (action == NPC_SPECTATOR_ACTION_SPECIFIC) {
-            const char *plrName = code;
+            const char* plrName = code;
 
             char playerName[50];
             strcpy(playerName, plrName);
@@ -135,7 +135,7 @@ public:
 
             if (Player * target = ObjectAccessor::FindPlayerByName(playerName)) {
                 ChatHandler handler(player->GetSession());
-                char const *pTarget = target->GetName().c_str();
+                const char* pTarget = target->GetName().c_str();
                 CloseGossipMenuFor(player);
                 ArenaSpectator::HandleSpectatorSpectateCommand(&handler, pTarget);
                 return true;

@@ -60,11 +60,11 @@ bool ScriptMgr::OnGossipSelect(Player* player, GameObject* go, uint32 sender, ui
     return tempScript ? tempScript->OnGossipSelect(player, go, sender, action) : false;
 }
 
-bool ScriptMgr::OnGossipSelectCode(Player* player, GameObject* go, uint32 sender, uint32 action, std::string_view code)
+bool ScriptMgr::OnGossipSelectCode(Player* player, GameObject* go, uint32 sender, uint32 action, const char* code)
 {
     ASSERT(player);
     ASSERT(go);
-    ASSERT(!code.empty());
+    ASSERT(code);
 
     auto ret = IsValidBoolScript<AllGameObjectScript>([&](AllGameObjectScript* script)
     {
@@ -76,26 +76,6 @@ bool ScriptMgr::OnGossipSelectCode(Player* player, GameObject* go, uint32 sender
 
     auto tempScript = ScriptRegistry<GameObjectScript>::Instance()->GetScriptById(go->GetScriptId());
     return tempScript ? tempScript->OnGossipSelectCode(player, go, sender, action, code) : false;
-}
-
-bool ScriptMgr::OnGossipSelectCode2(Player* player, GameObject* go, uint32 sender, uint32 action, const char* code)
-{
-    ASSERT(player);
-    ASSERT(go);
-    ASSERT(code);
-
-    auto ret = IsValidBoolScript<AllGameObjectScript>([&](AllGameObjectScript* script)
-        {
-            return script->CanGameObjectGossipSelectCode(player, go, sender, action, code);
-        });
-
-    if (ret && *ret)
-    {
-        return true;
-    }
-
-    auto tempScript = ScriptRegistry<GameObjectScript>::Instance()->GetScriptById(go->GetScriptId());
-    return tempScript ? tempScript->OnGossipSelectCode2(player, go, sender, action, code) : false;
 }
 
 bool ScriptMgr::OnQuestAccept(Player* player, GameObject* go, Quest const* quest)

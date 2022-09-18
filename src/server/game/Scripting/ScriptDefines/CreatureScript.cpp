@@ -60,13 +60,13 @@ bool ScriptMgr::OnGossipSelect(Player* player, Creature* creature, uint32 sender
     return tempScript ? tempScript->OnGossipSelect(player, creature, sender, action) : false;
 }
 
-bool ScriptMgr::OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, std::string_view code)
+bool ScriptMgr::OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code)
 {
     ASSERT(player);
     ASSERT(creature);
-    ASSERT(!code.empty());
+    ASSERT(code);
 
-    auto ret = IsValidBoolScript<AllCreatureScript>([player, creature, sender, action, code](AllCreatureScript* script)
+    auto ret = IsValidBoolScript<AllCreatureScript>([&](AllCreatureScript* script)
     {
         return script->CanCreatureGossipSelectCode(player, creature, sender, action, code);
     });
@@ -76,26 +76,6 @@ bool ScriptMgr::OnGossipSelectCode(Player* player, Creature* creature, uint32 se
 
     auto tempScript = ScriptRegistry<CreatureScript>::Instance()->GetScriptById(creature->GetScriptId());
     return tempScript ? tempScript->OnGossipSelectCode(player, creature, sender, action, code) : false;
-}
-
-bool ScriptMgr::OnGossipSelectCode2(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code)
-{
-    ASSERT(player);
-    ASSERT(creature);
-    ASSERT(code);
-
-    auto ret = IsValidBoolScript<AllCreatureScript>([&](AllCreatureScript* script)
-        {
-            return script->CanCreatureGossipSelectCode(player, creature, sender, action, code);
-        });
-
-    if (ret && *ret)
-    {
-        return true;
-    }
-
-    auto tempScript = ScriptRegistry<CreatureScript>::Instance()->GetScriptById(creature->GetScriptId());
-    return tempScript ? tempScript->OnGossipSelectCode2(player, creature, sender, action, code) : false;
 }
 
 bool ScriptMgr::OnQuestAccept(Player* player, Creature* creature, Quest const* quest)
