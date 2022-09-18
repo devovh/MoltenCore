@@ -39,7 +39,7 @@ namespace
     {
         MapEntry const* map = sMapStore.LookupEntry(mapID);
         if (!map)
-            return "Неизвестно";
+            return "unknown";
 
         return map->name[localeIndex];
     }
@@ -51,13 +51,13 @@ namespace
             switch (diff)
             {
                 case RAID_DIFFICULTY_10MAN_NORMAL:
-                    return "10 об.";
+                    return "10 Normal.";
                 case RAID_DIFFICULTY_25MAN_NORMAL:
-                    return "25 об.";
+                    return "25 Normal.";
                 case RAID_DIFFICULTY_10MAN_HEROIC:
-                    return "10 гер.";
+                    return "10 Heroic.";
                 case RAID_DIFFICULTY_25MAN_HEROIC:
-                    return "25 гер.";
+                    return "25 Heroic.";
                 default:
                     break;
             }
@@ -67,9 +67,9 @@ namespace
             switch (diff)
             {
                 case DUNGEON_DIFFICULTY_NORMAL:
-                    return "5 об.";
+                    return "5 Normal.";
                 case DUNGEON_DIFFICULTY_HEROIC:
-                    return "5 гер.";
+                    return "5 Heroic.";
                 default:
                     break;
             }
@@ -159,7 +159,7 @@ void UnbindInstance::LoadCostData()
     if (!_isEnable)
         return;
 
-    LOG_INFO("module.unbind", "Загрузка вариантов стоимости сброса кд...");
+    LOG_INFO("module.unbind", "Loading cd reset cost options...");
 
     QueryResult result = CharacterDatabase.Query("SELECT "
                          "`ItemID`,"                 // 0
@@ -172,7 +172,7 @@ void UnbindInstance::LoadCostData()
 
     if (!result)
     {
-        LOG_WARN("module.unbind", "> Загружено 0 вариантов стоимости. Таблица `unbind_instance_cost` пустая.");
+        LOG_WARN("module.unbind", "> 0 value options loaded. The `unbind_instance_cost` table is empty.");
         LOG_INFO("module.unbind", "");
         return;
     }
@@ -219,7 +219,7 @@ void UnbindInstance::LoadCostData()
         _costStore.emplace(_UIData.ItemID, _UIData);
     } while (result->NextRow());
 
-    LOG_INFO("module.unbind", ">> Загружено {} вариантов за {}", _costStore.size(), sw);
+    LOG_INFO("module.unbind", ">> Loaded {} variants for {}", _costStore.size(), sw);
     LOG_INFO("module.unbind", "");
 }
 
@@ -265,22 +265,22 @@ void UnbindInstance::SendGossipHello(Player* player, Creature* creature)
     ClearGossipMenuFor(player);
 
     if (!IsExistBind(player))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "-- Вы не имеете кд ни на что", GOSSIP_SENDER_MAIN, 0);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, "-- You don't have cd for anything", GOSSIP_SENDER_MAIN, 0);
 
     if (::IsExistBindDifficulty(player, DUNGEON_DIFFICULTY_HEROIC, false))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Героические подземелья", ::GetCountInstanceBind(player, DUNGEON_DIFFICULTY_HEROIC, false)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DUNGEON_HEROIC);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Heroic Dungeons", ::GetCountInstanceBind(player, DUNGEON_DIFFICULTY_HEROIC, false)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DUNGEON_HEROIC);
 
     if (::IsExistBindDifficulty(player, RAID_DIFFICULTY_10MAN_NORMAL))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Рейды 10 об.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_10MAN_NORMAL)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_10_NORMAL);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Raids 10 Normal.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_10MAN_NORMAL)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_10_NORMAL);
 
     if (::IsExistBindDifficulty(player, RAID_DIFFICULTY_25MAN_NORMAL))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Рейды 25 об.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_25MAN_NORMAL)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_25_NORMAL);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Raids 25 Normal.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_25MAN_NORMAL)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_25_NORMAL);
 
     if (::IsExistBindDifficulty(player, RAID_DIFFICULTY_10MAN_HEROIC))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Рейды 10 гер.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_10MAN_HEROIC)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_10_HEROIC);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Raids 10 Heroic.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_10MAN_HEROIC)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_10_HEROIC);
 
     if (::IsExistBindDifficulty(player, RAID_DIFFICULTY_25MAN_HEROIC))
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Рейды 25 гер.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_25MAN_HEROIC)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_25_HEROIC);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("[{}] Raids 25 Heroic.", ::GetCountInstanceBind(player, RAID_DIFFICULTY_25MAN_HEROIC)), GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_RAID_25_HEROIC);
 
     SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
 }
@@ -316,7 +316,7 @@ void UnbindInstance::SendBindList(Player* player, Creature* creature, uint8 diff
         index++;
     }
 
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<< Назад", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_MAIN_MENU);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<< Back", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_MAIN_MENU);
     SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
 }
 
@@ -340,10 +340,10 @@ void UnbindInstance::BindInfo(Player* player, Creature* creature, uint32 sender,
     std::string const mapName = ::GetMapName(mapID, localeIndex);
     std::string const diffName = ::GetDiffName(diff, isRaidDiff);
 
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("-- Информация о сохранении"), sender, action);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("-- Saving Information"), sender, action);
     AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("- {} ({})", mapName, diffName), sender, action);
     AddGossipItemFor(player, GOSSIP_ICON_CHAT, "--", sender, action);
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("# Варианты сброса сохранения"), sender, action);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("# Save Reset Options"), sender, action);
 
     auto GetCostCount = [&](uint32 itemID) -> uint32
     {
@@ -390,11 +390,11 @@ void UnbindInstance::BindInfo(Player* player, Creature* creature, uint32 sender,
         uint32 itemID = uiCost.first;
         std::string itemlink = sGameLocale->GetItemLink(itemID, localeIndex);
         uint32 itemCount = GetCostCount(itemID);
-        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("{}. {} ({}) шт.", itemID, itemlink, itemCount), sender, action);
+        AddGossipItemFor(player, GOSSIP_ICON_CHAT, Warhead::StringFormat("{}. {} ({}) PCS.", itemID, itemlink, itemCount), sender, action);
     }
 
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "-- Удалить сохранение (выбрать предмет)", sender, action, "Введите номер предмета", 0, true);
-    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<< В главное меню", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_MAIN_MENU);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "-- Delete save (select item)", sender, action, "Enter item number", 0, true);
+    AddGossipItemFor(player, GOSSIP_ICON_CHAT, "<< To main menu", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_MAIN_MENU);
     SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature);
 }
 
@@ -463,27 +463,27 @@ void UnbindInstance::Unbind(Player* player, Creature* creature, uint32 sender, u
 
     if (!itemCount)
     {
-        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 Вы не можете удалить сохранение за|r {}", itemLink);
+        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 You cannot delete a save for|r {}", itemLink);
         BindInfo(player, creature, sender, action);
         return;
     }
 
     if (player->GetMapId() == mapID)
     {
-        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 Вы не можете удалить сохранение находясь здесь|r {} ({})", mapName, diffName);
+        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 You cannot delete a save while here|r {} ({})", mapName, diffName);
         BindInfo(player, creature, sender, action);
         return;
     }
 
     if (!player->HasItemCount(itemID, itemCount))
     {
-        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 Вам не хватает|r {} х{}", itemLink, itemCount - hasItemCount);
+        handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 You are missing|r {} x{}", itemLink, itemCount - hasItemCount);
         BindInfo(player, creature, sender, action);
         return;
     }
 
     player->DestroyItemCount(itemID, itemCount, true);
-    handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 Удалено сохранение:|r {} ({})", mapName, diffName);
+    handler.PSendSysMessage("|cFFFF0000#|cff6C8CD5 Removed save:|r {} ({})", mapName, diffName);
     sInstanceSaveMgr->PlayerUnbindInstance(player->GetGUID(), mapID, diff, true, player);
     SaveLogUnbind(player, mapID, sender - GOSSIP_SENDER_DIFFICULTY, itemID, isRaidDiff);
 
