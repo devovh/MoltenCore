@@ -1,0 +1,26 @@
+Install Screen.
+
+sudo apt install screen
+or
+sudo pacman -S screen
+
+Chmod.
+
+sudo chmod 777 resw
+sudo chmod 777 resa
+sudo chmod 777 sa
+sudo chmod 777 sw
+
+Start Emulator.
+
+sudo sh ./sa
+sudo sh ./sw
+
+Look Screen Console, Type:
+
+sudo screen -r auth
+sudo screen -r world
+
+To Unlook Screen - no crash server, type:
+
+Ctrl+A+D

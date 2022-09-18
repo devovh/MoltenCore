@@ -1,0 +1,6 @@
+#!/bin/bash
+
+while :; do
+./worldserver
+sleep 1
+done 
