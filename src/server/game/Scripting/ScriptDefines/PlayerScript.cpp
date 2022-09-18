@@ -47,6 +47,14 @@ void ScriptMgr::OnGossipSelectCode(Player* player, uint32 menu_id, uint32 sender
     });
 }
 
+void ScriptMgr::OnGossipSelectCode2(Player* player, uint32 menu_id, uint32 sender, uint32 action, const char* code)
+{
+    ExecuteScript<PlayerScript>([&](PlayerScript* script)
+        {
+            script->OnGossipSelectCode2(player, menu_id, sender, action, code);
+        });
+}
+
 void ScriptMgr::OnPlayerCompleteQuest(Player* player, Quest const* quest)
 {
     ExecuteScript<PlayerScript>([&](PlayerScript* script)

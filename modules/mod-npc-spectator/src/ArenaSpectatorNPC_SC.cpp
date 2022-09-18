@@ -104,8 +104,8 @@ public:
         }
         return true;
     }
-    /* Fix It.
-    bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override {
+    
+    bool OnGossipSelectCode2(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override {
          ClearGossipMenuFor(player);
 
         if (sender != GOSSIP_SENDER_MAIN)
@@ -146,7 +146,7 @@ public:
         }
         CloseGossipMenuFor(player);
         return true;
-    }*/
+    }
 };
 
 void AddSC_ArenaSpectatorNPC()
