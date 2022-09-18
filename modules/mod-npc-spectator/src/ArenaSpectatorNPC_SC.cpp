@@ -28,6 +28,7 @@
 #include "ScriptMgr.h"
 #include "World.h"
 #include "ScriptObject.h"
+#include "ScriptedCreature.h"
 
 class ArenaSpectatorNPC_BG : public BGScript
 {
@@ -51,7 +52,7 @@ class ArenaSpectatorNPC_Creature : public CreatureScript
 public:
     ArenaSpectatorNPC_Creature() : CreatureScript("ArenaSpectatorNPC_Creature") { }
 
-    bool OnGossipHello(Player *player, Creature* creature) {
+    bool OnGossipHello(Player *player, Creature* creature) override {
         if (!player || !creature)
             return true;
 
@@ -65,7 +66,7 @@ public:
         return true;
     }
 
-    bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) {
+    bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override {
         if (!player || !creature)
             return true;
 
@@ -103,9 +104,9 @@ public:
         }
         return true;
     }
-
-    bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) {
-        ClearGossipMenuFor(player);
+    /* Fix It.
+    bool OnGossipSelectCode(Player* player, Creature* creature, uint32 sender, uint32 action, const char* code) override {
+         ClearGossipMenuFor(player);
 
         if (sender != GOSSIP_SENDER_MAIN)
         {
@@ -145,7 +146,7 @@ public:
         }
         CloseGossipMenuFor(player);
         return true;
-    }
+    }*/
 };
 
 void AddSC_ArenaSpectatorNPC()
