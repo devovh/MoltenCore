@@ -1,0 +1,6 @@
+# Set current dir
+CU_SET_PATH("CUR_DIR_MODULE_NOTIFY_MUTED" "${CMAKE_CURRENT_LIST_DIR}")
+
+AC_ADD_SCRIPT("${CMAKE_CURRENT_LIST_DIR}/src/PlayerNotSpeak.cpp")
+AC_ADD_SCRIPT_LOADER("PlayerNotSpeak" "${CMAKE_CURRENT_LIST_DIR}/src/loader.h")
+AC_ADD_CONFIG_FILE("${CMAKE_CURRENT_LIST_DIR}/conf/PlayerNotSpeak.conf.dist")
