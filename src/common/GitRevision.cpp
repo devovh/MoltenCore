@@ -94,7 +94,7 @@ char const* GitRevision::GetMySQLExecutable()
 
 char const* GitRevision::GetFullVersion()
 {
-    return VER_COMPANYNAME_STR " rev. " VER_PRODUCTVERSION_STR " (" WARHEAD_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " WARHEAD_LINKAGE_TYPE_STR ")";
+    return VER_COMPANYNAME_STR/*" rev. " VER_PRODUCTVERSION_STR " (" WARHEAD_PLATFORM_STR ", " _BUILD_DIRECTIVE ", " WARHEAD_LINKAGE_TYPE_STR ")"*/;
 }
 
 char const* GitRevision::GetCompanyNameStr()
