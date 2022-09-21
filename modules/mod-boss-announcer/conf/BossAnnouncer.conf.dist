@@ -26,4 +26,4 @@
 #        Default: 0
 #
 
-BossAnnouncer.Enable = 0
+BossAnnouncer.Enable = 1
