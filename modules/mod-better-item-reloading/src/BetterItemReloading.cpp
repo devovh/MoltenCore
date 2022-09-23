@@ -78,7 +78,7 @@ public:
                 "startquest, lockid, Material, sheath, RandomProperty, RandomSuffix, block, itemset, MaxDurability, area, Map, BagFamily, "
                 "TotemCategory, socketColor_1, socketContent_1, socketColor_2, socketContent_2, socketColor_3, socketContent_3, socketBonus, "
                 "GemProperties, RequiredDisenchantSkill, ArmorDamageModifier, duration, ItemLimitCategory, HolidayId, ScriptName, DisenchantID, "
-                "FoodType, minMoneyLoot, maxMoneyLoot, flagsCustom FROM item_template WHERE entry = %u", entry);
+                "FoodType, minMoneyLoot, maxMoneyLoot, flagsCustom FROM item_template WHERE entry = {}", entry);
 
             if (!result)
             {
